@@ -70,8 +70,7 @@ public class StorageLocationFragment extends BaseFragment implements AbsListView
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_storagelocation, container, false);
 
         // Set the adapter
@@ -97,6 +96,7 @@ public class StorageLocationFragment extends BaseFragment implements AbsListView
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 
     /**
