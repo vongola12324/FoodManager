@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Food"
-            android:id="@+id/buttonNF"
+            android:id="@+id/button1"
             android:layout_gravity="left|top" />
 
     </FrameLayout>
