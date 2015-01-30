@@ -6,7 +6,7 @@
 ## Problems
 - 買食物回家，如何管理才好？（食物管理系統）
 
-## Disscusion
+## Discussion
 [Hackpad](https://hackpad.com/ALPHA-Hackathon-10--wPmGGCSyyzF)
 
 ## Collaborators
