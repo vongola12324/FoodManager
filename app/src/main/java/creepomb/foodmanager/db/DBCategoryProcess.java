@@ -30,21 +30,16 @@ public class DBCategoryProcess {
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     CATEGORYNAME_COLUMN + " TEXT NOT NULL, " + ")" ;
 
-    // 資料庫物件
-    private SQLiteDatabase db;
+    private DBHelper helper;
 
-    // 建構子，一般的應用都不需要修改
-    public DBCategoryProcess(Context context) {
-        db = DBHelper.getDatabase(context);
-    }
-
-    // 關閉資料庫，一般的應用都不需要修改
-    public void close() {
-        db.close();
+    public DBCategoryProcess(DBHelper helper) {
+        this.helper = helper;
     }
 
     // 新增參數指定的物件
     public Category insert(Category item) {
+        SQLiteDatabase db = helper.getWritableDatabase();
+
         // 建立準備新增資料的ContentValues物件
         ContentValues cv = new ContentValues();
 
@@ -66,6 +61,8 @@ public class DBCategoryProcess {
     }
 
     public boolean update(Category item) {
+        SQLiteDatabase db = helper.getWritableDatabase();
+
         // 建立準備修改資料的ContentValues物件
         ContentValues cv = new ContentValues();
 
@@ -83,6 +80,8 @@ public class DBCategoryProcess {
 
     // 讀取所有記事資料
     public List<Category> getAll() {
+        SQLiteDatabase db = helper.getReadableDatabase();
+
         List<Category> result = new ArrayList<>();
         Cursor cursor = db.query(
                 TABLE_NAME, null, null, null, null, null, null, null);
@@ -97,6 +96,8 @@ public class DBCategoryProcess {
 
     // 取得指定編號的資料物件
     public Category get(long id) {
+        SQLiteDatabase db = helper.getReadableDatabase();
+
         // 準備回傳結果用的物件
         Category item = null;
         // 使用編號為查詢條件
@@ -130,6 +131,8 @@ public class DBCategoryProcess {
 
     // 取得資料數量
     public int getCount() {
+        SQLiteDatabase db = helper.getReadableDatabase();
+
         int result = 0;
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME, null);
 

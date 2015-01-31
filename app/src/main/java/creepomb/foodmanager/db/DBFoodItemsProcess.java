@@ -179,6 +179,8 @@ public class DBFoodItemsProcess {
         if (storedLocId == -1)
             return getAll();
         else {
+            SQLiteDatabase db = helper.getReadableDatabase();
+
             List<FoodItem> result = new ArrayList<>();
             Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + STOREDLOC_COLUMN + " == " + storedLocId + ";", null);
             while (cursor.moveToNext()) {
