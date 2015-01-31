@@ -12,6 +12,7 @@ import android.view.*;
 import android.support.v4.widget.DrawerLayout;
 import android.database.sqlite.*;
 
+import creepomb.foodmanager.fragment.AddStoreFoodFragment;
 import creepomb.foodmanager.fragment.BaseFragment;
 import creepomb.foodmanager.fragment.StorageLocationFragment;
 
@@ -59,6 +60,8 @@ public class MainActivity extends ActionBarActivity
         switch (number) {
             case 1:
                 return StorageLocationFragment.newInstance(number);
+            case 3:
+                return AddStoreFoodFragment.newInstance(number);
             default:
                 return BaseFragment.newInstance(number);
         }
@@ -79,6 +82,8 @@ public class MainActivity extends ActionBarActivity
                 mTitle = getString(R.string.title_section4);
                 break;
         }
+        //BAD~~~
+        getSupportActionBar().setTitle(mTitle);
     }
 
     public void restoreActionBar() {
@@ -104,17 +109,15 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.add_import_food) {
+            onNavigationDrawerItemSelected(2);
             return true;
         }
-
-        return super.onOptionsItemSelected(item);
+        else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
 }

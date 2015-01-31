@@ -1,4 +1,4 @@
-package creepomb.foodmanager;
+package creepomb.foodmanager.util;
 
 import java.text.DateFormat;
 import java.util.Calendar;

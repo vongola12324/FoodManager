@@ -1,15 +1,12 @@
-package creepomb.foodmanager;
+package creepomb.foodmanager.db;
 
 import android.content.Context;
 import android.database.sqlite.*;
 
-/**
- * Created by vongola12324 on 15/1/31.
- */
 
 class DBHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "food.db";
+    public static final String DATABASE_NAME = "FoodManager.db";
     public static final int VERSION = 1;
     private static SQLiteDatabase database;
 
@@ -27,12 +24,12 @@ class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(DBFoodItemsProcess.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS " + DBFoodItemsProcess.TABLE_NAME);
         onCreate(db);
     }
 }
