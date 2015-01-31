@@ -1,8 +1,11 @@
 package creepomb.foodmanager;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -12,14 +15,26 @@ import android.view.*;
 import android.support.v4.widget.DrawerLayout;
 import android.database.sqlite.*;
 
+import creepomb.foodmanager.db.DBCategoryProcess;
+import creepomb.foodmanager.db.DBFoodItemsProcess;
 import creepomb.foodmanager.fragment.AddStoreFoodFragment;
 import creepomb.foodmanager.fragment.BaseFragment;
+import creepomb.foodmanager.fragment.FoodListFragment;
 import creepomb.foodmanager.fragment.StorageLocationFragment;
+
+import creepomb.foodmanager.db.DBStorageLocationItemsProcess;
+import creepomb.foodmanager.db.DBHelper;
+import creepomb.foodmanager.util.StorageLocationItem;
 
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+                   //BaseFragment.OnFragmentInteractionListener {
 
+    public static DBHelper helper;
+    public static DBStorageLocationItemsProcess dbStorageLocationItemsProcess;
+    public static DBFoodItemsProcess dbFoodItemsProcess;
+    public static DBCategoryProcess dbCategoryProcess;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -34,7 +49,6 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -45,15 +59,23 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        helper = new DBHelper(this);
+        dbStorageLocationItemsProcess = new DBStorageLocationItemsProcess(helper);
+        dbFoodItemsProcess = new DBFoodItemsProcess(helper);
+        dbCategoryProcess = new DBCategoryProcess(helper);
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
+        onNavigationDrawerItemSelected(newFragmentInstance(position + 1));
+    }
+
+    public void onNavigationDrawerItemSelected(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, newFragmentInstance(position + 1))
-                .commit();
+                 .replace(R.id.container, fragment)
+                 .commit();
     }
 
     public Fragment newFragmentInstance(int number) {
@@ -65,6 +87,23 @@ public class MainActivity extends ActionBarActivity
             default:
                 return BaseFragment.newInstance(number);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage("是否離開?")
+                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        System.exit(0);
+                    }
+                })
+                .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {}
+                });
+        AlertDialog logout_dialog = builder.create();
+        logout_dialog.show();
     }
 
     public void onSectionAttached(int number) {
@@ -80,6 +119,9 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 4:
                 mTitle = getString(R.string.title_section4);
+                break;
+            case 5:
+                mTitle = getString(R.string.title_section5) + (FoodListFragment.titleName != "" ? " - " + FoodListFragment.titleName : "");
                 break;
         }
         //BAD~~~
@@ -119,6 +161,10 @@ public class MainActivity extends ActionBarActivity
             return super.onOptionsItemSelected(item);
         }
     }
-
+/*
+    @Override
+    public void onFragmentInteraction(BaseFragment fragment, Uri uri) {
+        System.out.println("Hello, world");
+    }*/
 }
 

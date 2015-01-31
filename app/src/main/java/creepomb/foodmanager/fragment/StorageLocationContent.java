@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import creepomb.foodmanager.MainActivity;
 import creepomb.foodmanager.util.StorageLocationItem;
 
 public class StorageLocationContent {
@@ -15,15 +16,11 @@ public class StorageLocationContent {
         ITEMS = new ArrayList<StorageLocationItem>();
         addItem(new StorageLocationItem(-1, 0, "全部"));
 
-        //Test
-        addItem(new StorageLocationItem(1, 1, "冰箱"));
-        addItem(new StorageLocationItem(2, 2, "零食櫃"));
+        ITEMS.addAll(MainActivity.dbStorageLocationItemsProcess.getAll());
 
         return ITEMS;
     }
-
     public static void addItem(StorageLocationItem item) {
         ITEMS.add(item);
     }
-
 }

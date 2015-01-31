@@ -5,13 +5,12 @@
     <string name="title_section1">食物存放位置</string>
     <string name="title_section2">即將過期的</string>
     <string name="title_section3">新增購入食物</string>
-    <string name="title_section4">使用食材</string>
+    <string name="title_section4">使用食物</string>
+
+    <string name="title_section5">食物清單</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_example">Example action</string>
-    <string name="action_settings">Settings</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_import_food">新進食物</string>
@@ -21,5 +20,7 @@
     <string name="add_Food_unit">單位</string>
     <string name="add_Food_StorageLocation">存放位置</string>
     <string name="add_Food_StorageTime">保存期限</string>
-
+    <string name="add_Food_StorageTime_Year">年</string>
+    <string name="add_Food_StorageTime_Month">月</string>
+    <string name="add_Food_StorageTime_Day">日</string>
 </resources>
