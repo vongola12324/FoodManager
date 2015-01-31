@@ -26,15 +26,10 @@ import creepomb.foodmanager.util.StorageLocationItem;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-<<<<<<< HEAD
-    private int flag = 0;
-=======
 
     public static DBHelper helper;
     public static DBStorageLocationItemsProcess dbStorageLocationItemsProcess;
     public static DBFoodItemsProcess dbFoodItemsProcess;
-
->>>>>>> 53b1b0f327fb27f245770f1ad7969d8bcb8a4dfe
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
