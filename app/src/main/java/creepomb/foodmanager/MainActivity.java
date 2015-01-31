@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,7 @@ import creepomb.foodmanager.util.StorageLocationItem;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+                   //BaseFragment.OnFragmentInteractionListener {
 
     public static DBHelper helper;
     public static DBStorageLocationItemsProcess dbStorageLocationItemsProcess;
@@ -150,6 +152,10 @@ public class MainActivity extends ActionBarActivity
             return super.onOptionsItemSelected(item);
         }
     }
-
+/*
+    @Override
+    public void onFragmentInteraction(BaseFragment fragment, Uri uri) {
+        System.out.println("Hello, world");
+    }*/
 }
 

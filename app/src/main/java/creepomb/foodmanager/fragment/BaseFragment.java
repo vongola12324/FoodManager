@@ -26,6 +26,8 @@ public class BaseFragment extends Fragment {
 
     protected int sectionNumber;
 
+    protected MainActivity activity;
+
     //private OnFragmentInteractionListener mListener;
 
     public static BaseFragment newInstance(int sectionNumber) {
@@ -51,16 +53,16 @@ public class BaseFragment extends Fragment {
         return textView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
-        /*if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+       /* if (mListener != null) {
+            mListener.onFragmentInteraction(this, uri);
         }*/
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        this.activity = (MainActivity) activity;
         ((MainActivity) activity).onSectionAttached(sectionNumber);
         /*try {
             mListener = (OnFragmentInteractionListener) activity;
@@ -76,19 +78,12 @@ public class BaseFragment extends Fragment {
         //mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+    public int getSectionNumber() {
+        return sectionNumber;
     }
+
+//    public interface OnFragmentInteractionListener {
+//        public void onFragmentInteraction(BaseFragment fragment, Uri uri);
+//    }
 
 }
