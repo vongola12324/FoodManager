@@ -12,7 +12,7 @@ import creepomb.foodmanager.util.FoodItem;
  */
 public class DBFoodItemsProcess {
     // 表格名稱
-    public static final String TABLE_NAME = "item";
+    public static final String TABLE_NAME = "FoodItem";
 
     // 編號表格欄位名稱，固定不變
     public static final String KEY_ID = "_id";
