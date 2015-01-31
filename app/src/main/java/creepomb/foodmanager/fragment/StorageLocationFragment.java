@@ -44,13 +44,15 @@ public class StorageLocationFragment extends BaseFragment implements AbsListView
 
     public static StorageLocationFragment newInstance(int sectionNumber) {
         StorageLocationFragment fragment = new StorageLocationFragment(sectionNumber);
-        /*
+
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
-        */
+
         return fragment;
     }
+
+    public StorageLocationFragment() {}
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
