@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import creepomb.foodmanager.R;
+import creepomb.foodmanager.util.IconManager;
 import creepomb.foodmanager.util.StorageLocationItem;
 
 /**
@@ -125,10 +127,10 @@ public class StorageLocationFragment extends BaseFragment implements AbsListView
             }
             // Lookup view for data population
             TextView tvName = (TextView) convertView.findViewById(R.id.textView);
-            //TextView tvHome = (TextView) convertView.findViewById(R.id.tvHome);
+            ImageView ivName = (ImageView) convertView.findViewById(R.id.imageView);
             // Populate the data into the template view using the data object
             tvName.setText(storageLocation.name);
-            //tvHome.setText(user.hometown);
+            IconManager.setIconSrc(ivName, storageLocation.iconIndex);
             // Return the completed view to render on screen
             return convertView;
         }
