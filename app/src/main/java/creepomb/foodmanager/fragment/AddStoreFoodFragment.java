@@ -38,6 +38,8 @@ public class AddStoreFoodFragment extends BaseFragment {
         return fragment;
     }
 
+    public AddStoreFoodFragment() {}
+
     public AddStoreFoodFragment(int sectionNumber) {
         super(sectionNumber);
     }

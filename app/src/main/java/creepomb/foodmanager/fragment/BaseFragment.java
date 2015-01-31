@@ -38,6 +38,8 @@ public class BaseFragment extends Fragment {
         return fragment;
     }
 
+    public BaseFragment() {}
+
     public BaseFragment(int sectionNumber) {
         this.sectionNumber = sectionNumber;
     }
