@@ -28,7 +28,7 @@ public class DBCategoryProcess {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    CATEGORYNAME_COLUMN + " TEXT NOT NULL, " + ")" ;
+                    CATEGORYNAME_COLUMN + " TEXT NOT NULL " + ")" ;
 
     private DBHelper helper;
 

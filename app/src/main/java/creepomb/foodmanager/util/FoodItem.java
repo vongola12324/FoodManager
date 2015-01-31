@@ -1,5 +1,7 @@
 package creepomb.foodmanager.util;
 
+import android.provider.CalendarContract;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,17 +16,17 @@ public class FoodItem {
     private int amount = 0;
     private String unit = "";
     private int category = 0;
-    private GregorianCalendar outDated = new GregorianCalendar();
+    private long outDated = 0;
     private int storedLoc = 0;
 
 
-    public FoodItem(String name, int amount, String unit, int category, GregorianCalendar outDated, int storedLoc){
+    public FoodItem(String name, int amount, String unit, int category, long outDated, int storedLoc){
         //this.id = id;
         this.name = name;
         this.amount = amount;
         this.unit = unit;
         this.category = category;
-        this.outDated = (GregorianCalendar)outDated.clone();
+        this.outDated = outDated;
         this.storedLoc = storedLoc;
     }
 
@@ -53,14 +55,18 @@ public class FoodItem {
         return category;
     }
 
-    public static   GregorianCalendar packDate(long time){
-        GregorianCalendar gc = new GregorianCalendar();
-        gc.setTimeInMillis(time);
-        return gc;
+    public static long getDateInMilli(int year, int month, int day){
+        return new GregorianCalendar(year, month, day).getTimeInMillis();
     }
 
-    public Date getOutDated() {
-        return  (Date)outDated.clone();
+    public static String getDisplay(long mills) {
+        GregorianCalendar calendar = GregorianCalendar.get
+
+        return String.format("%4d年%2d月%2d日", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    public long getOutDated() {
+        return this.outDated;
     }
 
     public int getStoredLoc() {

@@ -2,6 +2,8 @@ package creepomb.foodmanager.db;
 
 import android.content.*;
 import android.database.sqlite.*;
+
+import java.text.SimpleDateFormat;
 import java.util.*;
 import android.database.Cursor;
 import android.util.Log;
@@ -31,7 +33,7 @@ public class DBFoodItemsProcess {
                     AMOUNT_COLUMN + " INTEGER NOT NULL, " +
                     UNIT_COLUMN + " TEXT NOT NULL, " +
                     CATEGORY_COLUMN + " INTEGER NOT NULL, " +
-                    OUTDATE_COLUMN + " DATE NOT NULL, " +
+                    OUTDATE_COLUMN + " LONG NOT NULL, " +
                     STOREDLOC_COLUMN + " INTEGER NOT NULL " + ")" ;
 
     private DBHelper helper;
@@ -53,7 +55,7 @@ public class DBFoodItemsProcess {
         cv.put(AMOUNT_COLUMN, item.getAmount());
         cv.put(UNIT_COLUMN, item.getUnit());
         cv.put(CATEGORY_COLUMN, item.getCategory());
-        cv.put(OUTDATE_COLUMN, item.getOutDated().toString());
+        cv.put(OUTDATE_COLUMN, item.getOutDated());
         cv.put(STOREDLOC_COLUMN, item.getStoredLoc());
 
 
@@ -82,7 +84,7 @@ public class DBFoodItemsProcess {
         cv.put(AMOUNT_COLUMN, item.getAmount());
         cv.put(UNIT_COLUMN, item.getUnit());
         cv.put(CATEGORY_COLUMN, item.getCategory());
-        cv.put(OUTDATE_COLUMN, item.getOutDated().toString());
+        cv.put(OUTDATE_COLUMN, item.getOutDated());
         cv.put(STOREDLOC_COLUMN, item.getStoredLoc());
 
         // 設定修改資料的條件為編號
@@ -146,7 +148,7 @@ public class DBFoodItemsProcess {
     // 把Cursor目前的資料包裝為物件
     public FoodItem getRecord(Cursor cursor) {
         // 準備回傳結果用的物件
-        FoodItem result = new FoodItem(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), FoodItem.packDate(cursor.getLong(5)), cursor.getInt(6));
+        FoodItem result = new FoodItem(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getLong(5), cursor.getInt(6));
 
         result.setId(cursor.getInt(0));
 
@@ -170,7 +172,7 @@ public class DBFoodItemsProcess {
 
     // 建立範例資料
     public void sample() {
-        FoodItem item = new FoodItem("伊賀", 1, "隻", 1, new GregorianCalendar(2075, 7, 17), 0);
+        FoodItem item = new FoodItem("伊賀", 1, "隻", 1, new GregorianCalendar(2075, 7, 17).getTimeInMillis(), 1);
 
         insert(item);
     }
@@ -192,6 +194,12 @@ public class DBFoodItemsProcess {
             }
             return result;
         }
+    }
+
+    public static String getSQL_INSERT(FoodItem item) {
+        return "INSERT INTO " + TABLE_NAME +
+                "(" + FOODNAME_COLUMN + "," + AMOUNT_COLUMN + "," + UNIT_COLUMN + "," + CATEGORY_COLUMN + "," + OUTDATE_COLUMN + "," + STOREDLOC_COLUMN + ")" +
+                "VALUES ('" + item.getName() + "'," + item.getAmount() + ",'" + item.getUnit() + "'," + item.getCategory() + "," + item.getOutDated() + "," + item.getStoredLoc() + ");";
     }
 
 }

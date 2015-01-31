@@ -12,6 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import junit.framework.Test;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import creepomb.foodmanager.R;
@@ -61,7 +65,7 @@ public class FoodListFragment extends BaseFragment implements AbsListView.OnItem
         super.onCreate(savedInstanceState);
 
         mAdapter = new FoodItemAdapter(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, items);
+                R.layout.food_item, android.R.id.text1, items);
     }
 
     @Override
@@ -116,18 +120,20 @@ public class FoodListFragment extends BaseFragment implements AbsListView.OnItem
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            FoodItem storageLocation = getItem(position);
+            FoodItem fooditem = getItem(position);
 
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.storage_location_item, parent, false);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.food_item, parent, false);
             }
 
-            //TextView tvName = (TextView) convertView.findViewById(R.id.textView);
-            //ImageView ivName = (ImageView) convertView.findViewById(R.id.imageView);
+            TextView tv_name = (TextView) convertView.findViewById(R.id.item_name);
+            TextView tv_count = (TextView) convertView.findViewById(R.id.item_count);
+            TextView tv_time = (TextView) convertView.findViewById(R.id.item_time);
 
-            //tvName.setText(storageLocation.name);
-            //IconManager.setIconSrc(ivName, storageLocation.iconIndex);
-
+            tv_name.setText(fooditem.getName());
+            tv_count.setText(fooditem.getAmount() + fooditem.getUnit());
+            tv_time.setText(FoodItem.getDisplay());
+            //new SimpleDateFormat("yyyy年mm月dd日").format(fooditem.getOutDated().getTime())
             return convertView;
         }
     }
