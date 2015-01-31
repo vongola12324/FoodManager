@@ -3,6 +3,7 @@ package creepomb.foodmanager.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 
 import java.util.List;
+import java.lang.Object;
 
 import creepomb.foodmanager.R;
 import creepomb.foodmanager.util.IconManager;
@@ -93,10 +95,13 @@ public class StorageLocationFragment extends BaseFragment implements AbsListView
         super.onDetach();
     }
 
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        Object obj = parent.getAdapter().getItem(position);
+        if (obj instanceof StorageLocationItem) {
+            long SL_id = ((StorageLocationItem) obj).id;
+            Log.i("Food", String.valueOf(SL_id));
+        }
     }
 
     /**
