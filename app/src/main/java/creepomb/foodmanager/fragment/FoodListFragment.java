@@ -42,10 +42,10 @@ public class FoodListFragment extends BaseFragment {
     public static FoodListFragment newInstance(String param1, String param2) {
         FoodListFragment fragment = new FoodListFragment();
 
-//        Bundle args = new Bundle();
+        Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
+        fragment.setArguments(args);
         return fragment;
     }
 
