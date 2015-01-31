@@ -19,7 +19,7 @@ android {
         targetSdkVersion 21
         versionCode System.getenv("BUILD_NUMBER") as Integer ?: 0
         versionName "1.1alpha"
-        project.ext.set("archivesBaseName", "FoodManager" + "-" + versionName + "-" + versionCode);
+        project.ext.set("archivesBaseName", "FoodManager" + "-" + versionName + "-build" + versionCode);
     }
     signingConfigs {
         release {
