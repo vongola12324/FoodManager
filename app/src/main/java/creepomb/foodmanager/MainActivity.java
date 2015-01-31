@@ -15,6 +15,10 @@ import android.view.*;
 import android.support.v4.widget.DrawerLayout;
 import android.database.sqlite.*;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import creepomb.foodmanager.db.DBCategoryProcess;
 import creepomb.foodmanager.db.DBFoodItemsProcess;
 import creepomb.foodmanager.fragment.AddStoreFoodFragment;
@@ -24,6 +28,7 @@ import creepomb.foodmanager.fragment.StorageLocationFragment;
 
 import creepomb.foodmanager.db.DBStorageLocationItemsProcess;
 import creepomb.foodmanager.db.DBHelper;
+import creepomb.foodmanager.util.FoodItem;
 import creepomb.foodmanager.util.StorageLocationItem;
 
 
@@ -83,6 +88,22 @@ public class MainActivity extends ActionBarActivity
         switch (number) {
             case 1:
                 return StorageLocationFragment.newInstance(number);
+            case 2:
+                List<FoodItem> items = this.dbFoodItemsProcess.getAll();
+
+                Collections.sort(items, new Comparator<FoodItem>() {
+                    @Override
+                    public int compare(FoodItem f1, FoodItem f2) {
+                        long t1 = f1.getOutDated();
+                        long t2 = f2.getOutDated();
+                        if (t1 < t2) return -1;
+                        else if (t1 > t2) return 1;
+                        return 0;
+                    }
+                });
+
+                return FoodListFragment.newInstance(2, items);
+
             case 3:
                 return AddStoreFoodFragment.newInstance(number);
             default:
