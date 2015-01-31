@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 /**
  * Created by vongola12324 on 15/1/31.
@@ -60,7 +61,10 @@ public class FoodItem {
     }
 
     public static String getDisplay(long mills) {
-        GregorianCalendar calendar = GregorianCalendar.get
+        //http://stackoverflow.com/a/6782571
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
+        calendar.setTimeInMillis(mills);
 
         return String.format("%4d年%2d月%2d日", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
     }

@@ -132,7 +132,7 @@ public class FoodListFragment extends BaseFragment implements AbsListView.OnItem
 
             tv_name.setText(fooditem.getName());
             tv_count.setText(fooditem.getAmount() + fooditem.getUnit());
-            tv_time.setText(FoodItem.getDisplay());
+            tv_time.setText(FoodItem.getDisplay(fooditem.getOutDated()));
             //new SimpleDateFormat("yyyy年mm月dd日").format(fooditem.getOutDated().getTime())
             return convertView;
         }
