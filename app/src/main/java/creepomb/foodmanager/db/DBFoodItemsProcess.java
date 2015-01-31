@@ -34,23 +34,18 @@ public class DBFoodItemsProcess {
                     UNIT_COLUMN + " TEXT NOT NULL, " +
                     CATEGORY_COLUMN + " INTEGER NOT NULL, " +
                     OUTDATE_COLUMN + " DATE NOT NULL, " +
-                    STOREDLOC_COLUMN + " INTEGER NOT NULL," + ")" ;
+                    STOREDLOC_COLUMN + " INTEGER NOT NULL " + ")" ;
 
-    // 資料庫物件
-    private SQLiteDatabase db;
+    private DBHelper helper;
 
-    // 建構子，一般的應用都不需要修改
-    public DBFoodItemsProcess(Context context) {
-        db = DBHelper.getDatabase(context);
-    }
-
-    // 關閉資料庫，一般的應用都不需要修改
-    public void close() {
-        db.close();
+    public DBFoodItemsProcess(DBHelper helper) {
+        this.helper = helper;
     }
 
     // 新增參數指定的物件
     public FoodItem insert(FoodItem item) {
+        SQLiteDatabase db = helper.getWritableDatabase();
+
         // 建立準備新增資料的ContentValues物件
         ContentValues cv = new ContentValues();
 
@@ -78,6 +73,8 @@ public class DBFoodItemsProcess {
 
     // 修改參數指定的物件
     public boolean update(FoodItem item) {
+        SQLiteDatabase db = helper.getWritableDatabase();
+
         // 建立準備修改資料的ContentValues物件
         ContentValues cv = new ContentValues();
 
@@ -100,6 +97,8 @@ public class DBFoodItemsProcess {
 
     // 刪除參數指定編號的資料
     public boolean delete(long id){
+        SQLiteDatabase db = helper.getWritableDatabase();
+
         // 設定條件為編號，格式為「欄位名稱=資料」
         String where = KEY_ID + "=" + id;
         // 刪除指定編號資料並回傳刪除是否成功
@@ -108,6 +107,8 @@ public class DBFoodItemsProcess {
 
     // 讀取所有記事資料
     public List<FoodItem> getAll() {
+        SQLiteDatabase db = helper.getReadableDatabase();
+
         List<FoodItem> result = new ArrayList<>();
         Cursor cursor = db.query(
                 TABLE_NAME, null, null, null, null, null, null, null);
@@ -122,6 +123,8 @@ public class DBFoodItemsProcess {
 
     // 取得指定編號的資料物件
     public FoodItem get(long id) {
+        SQLiteDatabase db = helper.getReadableDatabase();
+
         // 準備回傳結果用的物件
         FoodItem item = null;
         // 使用編號為查詢條件
@@ -155,6 +158,8 @@ public class DBFoodItemsProcess {
 
     // 取得資料數量
     public int getCount() {
+        SQLiteDatabase db = helper.getReadableDatabase();
+
         int result = 0;
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME, null);
 

@@ -12,13 +12,22 @@ import android.view.*;
 import android.support.v4.widget.DrawerLayout;
 import android.database.sqlite.*;
 
+import creepomb.foodmanager.db.DBFoodItemsProcess;
 import creepomb.foodmanager.fragment.AddStoreFoodFragment;
 import creepomb.foodmanager.fragment.BaseFragment;
 import creepomb.foodmanager.fragment.StorageLocationFragment;
 
+import creepomb.foodmanager.db.DBStorageLocationItemsProcess;
+import creepomb.foodmanager.db.DBHelper;
+import creepomb.foodmanager.util.StorageLocationItem;
+
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+
+    public static DBHelper helper;
+    public static DBStorageLocationItemsProcess dbStorageLocationItemsProcess;
+    public static DBFoodItemsProcess dbFoodItemsProcess;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -34,7 +43,6 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -45,6 +53,11 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        helper = new DBHelper(this);
+        dbStorageLocationItemsProcess = new DBStorageLocationItemsProcess(helper);
+        dbFoodItemsProcess = new DBFoodItemsProcess(helper);
+
     }
 
     @Override
