@@ -1,39 +1,42 @@
 package creepomb.foodmanager.fragment;
 
 import android.app.Activity;
-import android.net.Uri;
+import android.content.Context;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import java.util.List;
 
 import creepomb.foodmanager.R;
+
 import creepomb.foodmanager.util.FoodItem;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FoodListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FoodListFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A fragment representing a list of Items.
+ * <p/>
+ * Large screen devices (such as tablets) are supported by replacing the ListView
+ * with a GridView.
+ * <p/>
+ * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
+ * interface.
  */
-public class FoodListFragment extends BaseFragment {
+public class FoodListFragment extends BaseFragment implements AbsListView.OnItemClickListener {
+
+    public static String titleName = "";
+
+    private AbsListView mListView;
+
+    private ListAdapter mAdapter;
 
     protected List<FoodItem> items;
 
-//    private OnFragmentInteractionListener mListener;
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-
-     * @return A new instance of fragment FoodListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static FoodListFragment newInstance(int sectionNumber, List<FoodItem> items) {
         FoodListFragment fragment = new FoodListFragment(sectionNumber);
 
@@ -45,7 +48,9 @@ public class FoodListFragment extends BaseFragment {
         return fragment;
     }
 
-    public FoodListFragment() { }
+    public FoodListFragment() {
+
+    }
 
     public FoodListFragment(int sectionNumber) {
         super(sectionNumber);
@@ -54,17 +59,24 @@ public class FoodListFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAdapter = new FoodItemAdapter(getActivity(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, items);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_food_list, container, false);
-    }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_foodlist, container, false);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+        // Set the adapter
+        mListView = (AbsListView) view.findViewById(android.R.id.list);
+        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
+        // Set OnItemClickListener so we can be notified on item clicks
+        mListView.setOnItemClickListener(this);
+
+        return view;
     }
 
     @Override
@@ -75,6 +87,49 @@ public class FoodListFragment extends BaseFragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    /**
+     * The default content for this Fragment has a TextView that is shown when
+     * the list is empty. If you would like to change the text, call this method
+     * to supply the text it should use.
+     */
+    public void setEmptyText(CharSequence emptyText) {
+        View emptyView = mListView.getEmptyView();
+
+        if (emptyView instanceof TextView) {
+            ((TextView) emptyView).setText(emptyText);
+        }
+    }
+    
+    public static class FoodItemAdapter extends ArrayAdapter<FoodItem>{
+
+        public FoodItemAdapter(Context context, int resource, int textViewResourceId, List<FoodItem> objects) {
+            super(context, resource, textViewResourceId, objects);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            FoodItem storageLocation = getItem(position);
+
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.storage_location_item, parent, false);
+            }
+
+            //TextView tvName = (TextView) convertView.findViewById(R.id.textView);
+            //ImageView ivName = (ImageView) convertView.findViewById(R.id.imageView);
+
+            //tvName.setText(storageLocation.name);
+            //IconManager.setIconSrc(ivName, storageLocation.iconIndex);
+
+            return convertView;
+        }
     }
 
 }
