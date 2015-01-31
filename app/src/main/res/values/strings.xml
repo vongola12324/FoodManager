@@ -4,12 +4,17 @@
     <string name="app_name">FoodManager</string>
     <string name="title_section1">食物存放位置</string>
     <string name="title_section2">即將過期的</string>
-    <string name="title_section3">新增食物</string>
+    <string name="title_section3">新增購入食物</string>
     <string name="title_section4">使用食材</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_import_food">新進食物</string>
+    <string name="add_Food_category">類別</string>
+    <string name="add_Food_name">名稱</string>
+    <string name="add_Food_count">數量</string>
+    <string name="add_Food_StorageLocation">存放位置</string>
 
 </resources>
