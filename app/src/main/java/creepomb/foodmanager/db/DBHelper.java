@@ -1,4 +1,4 @@
-package creepomb.foodmanager;
+package creepomb.foodmanager.db;
 
 import android.content.Context;
 import android.database.sqlite.*;

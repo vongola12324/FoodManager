@@ -1,9 +1,11 @@
-package creepomb.foodmanager;
+package creepomb.foodmanager.db;
 
 import android.content.*;
 import android.database.sqlite.*;
 import java.util.*;
 import android.database.Cursor;
+
+import creepomb.foodmanager.util.FoodItem;
 
 /**
  * Created by vongola12324 on 15/1/31.
