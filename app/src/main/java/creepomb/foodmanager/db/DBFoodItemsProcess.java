@@ -4,6 +4,7 @@ import android.content.*;
 import android.database.sqlite.*;
 import java.util.*;
 import android.database.Cursor;
+import android.util.Log;
 
 import creepomb.foodmanager.util.FoodItem;
 
@@ -167,6 +168,23 @@ public class DBFoodItemsProcess {
         FoodItem item = new FoodItem("伊賀", 1, "隻", 1, new GregorianCalendar(2075, 7, 17), 0);
 
         insert(item);
+    }
+
+    public List<FoodItem> getIteminStoredLoc(long storedLocId) {
+        if (storedLocId == -1)
+            return getAll();
+        else {
+            List<FoodItem> result = new ArrayList<>();
+            Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + STOREDLOC_COLUMN + " == " + storedLocId + ";", null);
+            while (cursor.moveToNext()) {
+                result.add(getRecord(cursor));
+            }
+            cursor.close();
+            for(FoodItem fi:result){
+                Log.i("FoodItem", fi.toString());
+            }
+            return result;
+        }
     }
 
 }
