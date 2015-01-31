@@ -8,8 +8,9 @@ android {
         applicationId "creepomb.foodmanager"
         minSdkVersion 19
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        versionCode System.getenv("BUILD_NUMBER") as Integer ?: 0
+        versionName "1.1alpha"
+        project.ext.set("archivesBaseName", "FoodManager" + "-" + versionName + "-" + versionCode);
     }
     buildTypes {
         release {
