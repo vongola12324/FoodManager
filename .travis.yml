@@ -1,13 +1,1 @@
 language: android
-
-android:
-  - build-tools-21.1.2
-  - android-21
-  - android-20
-  - android-19
-  # Additional components
-  - extra-google-google_play_services
-  - extra-google-m2repository
-  - extra-android-m2repository
-  - addon-google_apis-google-19
-
