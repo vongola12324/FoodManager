@@ -1,20 +1,39 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.0+'
+    }
+}
+
 apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "creepomb.foodmanager"
         minSdkVersion 19
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        versionCode System.getenv("BUILD_NUMBER") as Integer ?: 0
+        versionName "1.1alpha"
+        project.ext.set("archivesBaseName", "FoodManager" + "-" + versionName + "-build" + versionCode);
+    }
+    signingConfigs {
+        release {
+            storeFile file("key/keystone.jks")
+            storePassword "creepomb"
+            keyAlias "FoodManagerKey"
+            keyPassword "creepomb"
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     lintOptions {
