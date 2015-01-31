@@ -30,11 +30,11 @@ public class AddStoreFoodFragment extends BaseFragment {
      */
     public static AddStoreFoodFragment newInstance(int sectionNumber) {
         AddStoreFoodFragment fragment = new AddStoreFoodFragment(sectionNumber);
-        /*
+
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
-        */
+
         return fragment;
     }
 

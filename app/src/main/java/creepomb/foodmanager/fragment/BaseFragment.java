@@ -30,11 +30,11 @@ public class BaseFragment extends Fragment {
 
     public static BaseFragment newInstance(int sectionNumber) {
         BaseFragment fragment = new BaseFragment(sectionNumber);
-        /*
+
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
-        */
+
         return fragment;
     }
 
