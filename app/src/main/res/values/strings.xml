@@ -20,5 +20,7 @@
     <string name="add_Food_unit">單位</string>
     <string name="add_Food_StorageLocation">存放位置</string>
     <string name="add_Food_StorageTime">保存期限</string>
-
+    <string name="add_Food_StorageTime_Year">年</string>
+    <string name="add_Food_StorageTime_Month">月</string>
+    <string name="add_Food_StorageTime_Day">日</string>
 </resources>

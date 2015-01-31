@@ -20,9 +20,7 @@ public class StorageLocationContent {
 
         return ITEMS;
     }
-
     public static void addItem(StorageLocationItem item) {
         ITEMS.add(item);
     }
-
 }
