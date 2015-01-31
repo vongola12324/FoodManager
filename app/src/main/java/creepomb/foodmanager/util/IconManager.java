@@ -7,6 +7,9 @@ import creepomb.foodmanager.R;
 public class IconManager {
     public static void setIconSrc(ImageView ivName, int iconIndex) {
         switch (iconIndex) {
+            case 0:
+                ivName.setImageResource(R.drawable.icon_all);
+                break;
             case 1:
                 ivName.setImageResource(R.drawable.icon_refrigerator);
                 break;
