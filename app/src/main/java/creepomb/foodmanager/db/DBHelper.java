@@ -3,9 +3,6 @@ package creepomb.foodmanager.db;
 import android.content.Context;
 import android.database.sqlite.*;
 
-/**
- * Created by vongola12324 on 15/1/31.
- */
 
 class DBHelper extends SQLiteOpenHelper {
 
