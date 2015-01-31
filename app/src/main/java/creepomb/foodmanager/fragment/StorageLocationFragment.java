@@ -18,7 +18,9 @@ import android.widget.TextView;
 import java.util.List;
 import java.lang.Object;
 
+import creepomb.foodmanager.MainActivity;
 import creepomb.foodmanager.R;
+import creepomb.foodmanager.util.FoodItem;
 import creepomb.foodmanager.util.IconManager;
 import creepomb.foodmanager.util.StorageLocationItem;
 
@@ -100,7 +102,9 @@ public class StorageLocationFragment extends BaseFragment implements AbsListView
         Object obj = parent.getAdapter().getItem(position);
         if (obj instanceof StorageLocationItem) {
             long SL_id = ((StorageLocationItem) obj).id;
-            Log.i("Food", String.valueOf(SL_id));
+            List<FoodItem> items = MainActivity.dbFoodItemsProcess.getIteminStoredLoc(SL_id);
+            super.activity.onNavigationDrawerItemSelected(FoodListFragment.newInstance(5, items));
+            FoodListFragment.titleName = ((StorageLocationItem) obj).name;
         }
     }
 

@@ -15,9 +15,11 @@ import android.view.*;
 import android.support.v4.widget.DrawerLayout;
 import android.database.sqlite.*;
 
+import creepomb.foodmanager.db.DBCategoryProcess;
 import creepomb.foodmanager.db.DBFoodItemsProcess;
 import creepomb.foodmanager.fragment.AddStoreFoodFragment;
 import creepomb.foodmanager.fragment.BaseFragment;
+import creepomb.foodmanager.fragment.FoodListFragment;
 import creepomb.foodmanager.fragment.StorageLocationFragment;
 
 import creepomb.foodmanager.db.DBStorageLocationItemsProcess;
@@ -32,6 +34,7 @@ public class MainActivity extends ActionBarActivity
     public static DBHelper helper;
     public static DBStorageLocationItemsProcess dbStorageLocationItemsProcess;
     public static DBFoodItemsProcess dbFoodItemsProcess;
+    public static DBCategoryProcess dbCategoryProcess;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -60,15 +63,18 @@ public class MainActivity extends ActionBarActivity
         helper = new DBHelper(this);
         dbStorageLocationItemsProcess = new DBStorageLocationItemsProcess(helper);
         dbFoodItemsProcess = new DBFoodItemsProcess(helper);
-
+        dbCategoryProcess = new DBCategoryProcess(helper);
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
+        onNavigationDrawerItemSelected(newFragmentInstance(position + 1));
+    }
+
+    public void onNavigationDrawerItemSelected(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                 .replace(R.id.container, newFragmentInstance(position + 1))
+                 .replace(R.id.container, fragment)
                  .commit();
     }
 
@@ -113,6 +119,9 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 4:
                 mTitle = getString(R.string.title_section4);
+                break;
+            case 5:
+                mTitle = getString(R.string.title_section5) + (FoodListFragment.titleName != "" ? " - " + FoodListFragment.titleName : "");
                 break;
         }
         //BAD~~~
