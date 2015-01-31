@@ -1,6 +1,7 @@
 package creepomb.foodmanager.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,9 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 
+import java.util.List;
+
 import creepomb.foodmanager.R;
-import creepomb.foodmanager.dummy.DummyContent;
-import creepomb.foodmanager.fragment.BaseFragment;
 
 /**
  * A fragment representing a list of Items.
@@ -60,13 +61,10 @@ public class StorageLocationFragment extends BaseFragment implements AbsListView
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-
-        }
-
         // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+        /*mAdapter = new ArrayAdapter<StorageLocationContent.StorageLocationItem>(getActivity(),
+                R.layout.storage_location_item, android.R.id.text1, StorageLocationContent.ITEMS);*/
+        mAdapter = new StorageLocationAdapter(getActivity(), R.layout.storage_location_item, android.R.id.text1, StorageLocationContent.ITEMS);
     }
 
     @Override
@@ -109,6 +107,31 @@ public class StorageLocationFragment extends BaseFragment implements AbsListView
 
         if (emptyView instanceof TextView) {
             ((TextView) emptyView).setText(emptyText);
+        }
+    }
+
+    public static class StorageLocationAdapter extends ArrayAdapter<StorageLocationContent.StorageLocationItem>{
+
+        public StorageLocationAdapter(Context context, int resource, int textViewResourceId, List<StorageLocationContent.StorageLocationItem> objects) {
+            super(context, resource, textViewResourceId, objects);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // Get the data item for this position
+            StorageLocationContent.StorageLocationItem storageLocation = getItem(position);
+            // Check if an existing view is being reused, otherwise inflate the view
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.storage_location_item, parent, false);
+            }
+            // Lookup view for data population
+            TextView tvName = (TextView) convertView.findViewById(R.id.textView);
+            //TextView tvHome = (TextView) convertView.findViewById(R.id.tvHome);
+            // Populate the data into the template view using the data object
+            tvName.setText(storageLocation.content);
+            //tvHome.setText(user.hometown);
+            // Return the completed view to render on screen
+            return convertView;
         }
     }
 
