@@ -139,12 +139,52 @@
             android:layout_gravity="center_vertical" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="55dp"
             android:layout_height="wrap_content"
             android:inputType="date"
             android:ems="10"
-            android:id="@+id/outDated_EditText"
-            android:layout_weight="1"
+            android:id="@+id/outDated_Year_EditText"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/add_Food_StorageTime_Year"
+            android:id="@+id/outDated_Year_TextView"
+            android:layout_gravity="center_vertical" />
+
+        <EditText
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/outDated_Month_EditText"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/add_Food_StorageTime_Month"
+            android:id="@+id/outDated_Month_TextView"
+            android:layout_gravity="center_vertical" />
+
+        <EditText
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/outDated_Day_EditText"
+            android:layout_weight="0.00"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/add_Food_StorageTime_Day"
+            android:id="@+id/outDated_Day_TextView"
             android:layout_gravity="center_vertical" />
 
     </TableRow>
