@@ -66,7 +66,7 @@ public class FoodItem {
         calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
         calendar.setTimeInMillis(mills);
 
-        return String.format("%4d年%2d月%2d日", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        return String.format("%04d年%02d月%02d日", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     public long getOutDated() {
