@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+    android:layout_height="100dp"
+    android:weightSum="1"
+    android:baselineAligned="false">
 
     <ImageView
         android:layout_width="100dp"
@@ -23,6 +24,7 @@
         android:paddingStart="?android:attr/listPreferredItemPaddingStart"
         android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:clickable="true" />
+        android:clickable="true"
+        android:layout_gravity="center_vertical" />
 
 </LinearLayout>

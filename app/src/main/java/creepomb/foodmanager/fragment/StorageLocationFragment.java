@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import creepomb.foodmanager.R;
+import creepomb.foodmanager.util.StorageLocationItem;
 
 /**
  * A fragment representing a list of Items.
@@ -61,10 +62,7 @@ public class StorageLocationFragment extends BaseFragment implements AbsListView
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO: Change Adapter to display your content
-        /*mAdapter = new ArrayAdapter<StorageLocationContent.StorageLocationItem>(getActivity(),
-                R.layout.storage_location_item, android.R.id.text1, StorageLocationContent.ITEMS);*/
-        mAdapter = new StorageLocationAdapter(getActivity(), R.layout.storage_location_item, android.R.id.text1, StorageLocationContent.ITEMS);
+        mAdapter = new StorageLocationAdapter(getActivity(), R.layout.storage_location_item, android.R.id.text1, StorageLocationContent.readFormDB());
     }
 
     @Override
@@ -110,16 +108,17 @@ public class StorageLocationFragment extends BaseFragment implements AbsListView
         }
     }
 
-    public static class StorageLocationAdapter extends ArrayAdapter<StorageLocationContent.StorageLocationItem>{
+    public static class StorageLocationAdapter extends ArrayAdapter<StorageLocationItem>{
 
-        public StorageLocationAdapter(Context context, int resource, int textViewResourceId, List<StorageLocationContent.StorageLocationItem> objects) {
+        public StorageLocationAdapter(Context context, int resource, int textViewResourceId, List<StorageLocationItem> objects) {
             super(context, resource, textViewResourceId, objects);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // Get the data item for this position
-            StorageLocationContent.StorageLocationItem storageLocation = getItem(position);
+
+            StorageLocationItem storageLocation = getItem(position);
             // Check if an existing view is being reused, otherwise inflate the view
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.storage_location_item, parent, false);
@@ -128,7 +127,7 @@ public class StorageLocationFragment extends BaseFragment implements AbsListView
             TextView tvName = (TextView) convertView.findViewById(R.id.textView);
             //TextView tvHome = (TextView) convertView.findViewById(R.id.tvHome);
             // Populate the data into the template view using the data object
-            tvName.setText(storageLocation.content);
+            tvName.setText(storageLocation.name);
             //tvHome.setText(user.hometown);
             // Return the completed view to render on screen
             return convertView;
