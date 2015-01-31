@@ -128,7 +128,10 @@ public class MainActivity extends ActionBarActivity
                 break;
         }
         //BAD~~~
-        getSupportActionBar().setTitle(mTitle);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            getSupportActionBar().setTitle(mTitle);
+        }
     }
 
     public void restoreActionBar() {
