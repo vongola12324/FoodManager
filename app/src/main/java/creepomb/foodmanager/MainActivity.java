@@ -74,6 +74,7 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
+                 .addToBackStack(fragment.toString())/*Add this transaction to the back stack*/
                  .replace(R.id.container, fragment)
                  .commit();
     }
@@ -91,6 +92,8 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStackImmediate();/*
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setMessage("是否離開?")
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
@@ -103,7 +106,7 @@ public class MainActivity extends ActionBarActivity
                     public void onClick(DialogInterface dialog, int which) {}
                 });
         AlertDialog logout_dialog = builder.create();
-        logout_dialog.show();
+        logout_dialog.show();*/
     }
 
     public void onSectionAttached(int number) {
