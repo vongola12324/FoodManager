@@ -10,7 +10,7 @@ import creepomb.foodmanager.util.FoodItem;
 /**
  * Created by vongola12324 on 15/1/31.
  */
-public class DBProcess {
+public class DBFoodItemsProcess {
     // 表格名稱
     public static final String TABLE_NAME = "item";
 
@@ -35,22 +35,12 @@ public class DBProcess {
                     CATEGORY_COLUMN + " INTEGER NOT NULL, " +
                     OUTDATE_COLUMN + " DATE NOT NULL, " +
                     STOREDLOC_COLUMN + " INTEGER NOT NULL," + ")" ;
-    /*
-    private int id = 0;
-    private String name = "";
-    private int amount = 0;
-    private String unit = "";
-    private int category = 0;
-    private Date outDated = new Date();
-    private int storedLoc = 0;
-    */
-
 
     // 資料庫物件
     private SQLiteDatabase db;
 
     // 建構子，一般的應用都不需要修改
-    public DBProcess(Context context) {
+    public DBFoodItemsProcess(Context context) {
         db = DBHelper.getDatabase(context);
     }
 
