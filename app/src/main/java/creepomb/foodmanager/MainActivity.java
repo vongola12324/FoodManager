@@ -1,7 +1,9 @@
 package creepomb.foodmanager;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -19,7 +21,7 @@ import creepomb.foodmanager.fragment.StorageLocationFragment;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
+    private int flag = 0;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -33,7 +35,6 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         setContentView(R.layout.activity_main);
 
@@ -52,8 +53,8 @@ public class MainActivity extends ActionBarActivity
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, newFragmentInstance(position + 1))
-                .commit();
+                 .replace(R.id.container, newFragmentInstance(position + 1))
+                 .commit();
     }
 
     public Fragment newFragmentInstance(int number) {
@@ -65,6 +66,23 @@ public class MainActivity extends ActionBarActivity
             default:
                 return BaseFragment.newInstance(number);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage("是否離開?")
+                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        System.exit(0);
+                    }
+                })
+                .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {}
+                });
+        AlertDialog logout_dialog = builder.create();
+        logout_dialog.show();
     }
 
     public void onSectionAttached(int number) {
