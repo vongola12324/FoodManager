@@ -44,7 +44,7 @@ public class MainActivity extends ActionBarActivity
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
+    private DrawerLayout mDrawerLayout;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
@@ -61,6 +61,7 @@ public class MainActivity extends ActionBarActivity
         mTitle = getTitle();
 
         // Set up the drawer.
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
@@ -113,8 +114,18 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onBackPressed() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.popBackStackImmediate();/*
+
+        if(mNavigationDrawerFragment.isDrawerOpen()){
+            mDrawerLayout.closeDrawers();
+            //mNavigationDrawerFragment.setMenuVisibility(true);
+        }
+        else if (getFragmentManager().getBackStackEntryCount() <=1) {
+            super.onBackPressed();
+        }
+        else {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.popBackStackImmediate();
+        }/*
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setMessage("是否離開?")
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {

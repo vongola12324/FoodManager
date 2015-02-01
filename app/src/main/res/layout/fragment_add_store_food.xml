@@ -121,7 +121,8 @@
             android:layout_height="40dp"
             android:id="@+id/storedLoc_Spinner"
             android:layout_gravity="center_vertical"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown"
+            android:textAlignment="center" />
     </TableRow>
 
     <TableRow
@@ -186,24 +187,28 @@
     </TableRow>
 
     <TableRow
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.08">
+        android:layout_weight="0.28">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="186dp"
+            android:layout_height="74dp"
             android:text="新增"
+            android:textSize = "25dp"
             android:id="@+id/newFood_Button"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:background="#ff25ff24" />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="75dp"
             android:text="取消"
+            android:textSize = "20dp"
             android:id="@+id/cancel_Button"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:background="#ffff1f1d" />
     </TableRow>
 
 </LinearLayout>
