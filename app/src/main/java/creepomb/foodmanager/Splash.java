@@ -8,11 +8,12 @@ import android.os.Handler;
 public class Splash extends Activity {
 
     /** Duration of wait **/
-    private final int SPLASH_TIME_OUT = 1000;
+    private final int SPLASH_TIME_OUT = 1200;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle icicle) {
+        getWindow().getDecorView().setSystemUiVisibility(2);
         super.onCreate(icicle);
         setContentView(R.layout.splash);
 
@@ -31,9 +32,10 @@ public class Splash extends Activity {
                 // Start your app main activity
                 Intent i = new Intent(Splash.this, MainActivity.class);
                 startActivity(i);
-
+                getWindow().getDecorView().setSystemUiVisibility(0);
                 // close this activity
                 finish();
+
             }
         }, SPLASH_TIME_OUT);
     }
