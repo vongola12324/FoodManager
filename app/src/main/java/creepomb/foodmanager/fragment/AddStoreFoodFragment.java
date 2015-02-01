@@ -63,18 +63,30 @@ public class AddStoreFoodFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_add_store_food, container, false);
         //-----------------------------------------------------------------------------------------------------------------------------------
         Spinner categories_Spinner = (Spinner) view.findViewById(R.id.category_Spinner);
-        Spinner outDated_years_Spinner = (Spinner) view.findViewById(R.id.outDated_Year_Spinner);
-        Spinner outDated_months_Spinner = (Spinner) view.findViewById(R.id.outDated_Month_Spinner);
-        Spinner outDated_days_Spinner = (Spinner) view.findViewById(R.id.outDated_Day_Spinner);
         List<Category> categories = MainActivity.dbCategoryProcess.getAll();
         List<String> categoryNames = new ArrayList<String>();
-        List<String> outDatedYears = new ArrayList<String>();
-        List<String> outDatedMonths = new ArrayList<String>();
-        List<String> outDatedDays = new ArrayList<String>();
 
         for (Category cate: categories) {
             categoryNames.add(cate.getName());
         }
+        categories_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, categoryNames));
+        //-----------------------------------------------------------------------------------------------------------------------------------
+        Spinner unit_Spinner = (Spinner) view.findViewById(R.id.unit_Spinner);
+
+        List<String> units = new ArrayList<String>();
+        units.add("個");
+        units.add("隻");
+
+        unit_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, units));
+        //-----------------------------------------------------------------------------------------------------------------------------------
+        Spinner outDated_years_Spinner = (Spinner) view.findViewById(R.id.outDated_Year_Spinner);
+        Spinner outDated_months_Spinner = (Spinner) view.findViewById(R.id.outDated_Month_Spinner);
+        Spinner outDated_days_Spinner = (Spinner) view.findViewById(R.id.outDated_Day_Spinner);
+
+        List<String> outDatedYears = new ArrayList<String>();
+        List<String> outDatedMonths = new ArrayList<String>();
+        List<String> outDatedDays = new ArrayList<String>();
+
         for(int i = 2065 ; i >= 1970 ; i--){
             outDatedYears.add((new Integer(i)).toString());
         }
@@ -84,14 +96,10 @@ public class AddStoreFoodFragment extends BaseFragment {
         for(int i = 1 ; i <= 31 ; i++){
             outDatedDays.add((new Integer(i)).toString());
         }
-        categories_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, categoryNames));
+
         outDated_years_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, outDatedYears));
         outDated_months_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, outDatedMonths));
         outDated_days_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, outDatedDays));
-        //-----------------------------------------------------------------------------------------------------------------------------------
-
-
-
         //-----------------------------------------------------------------------------------------------------------------------------------
         Spinner storageLocation_Spinner = (Spinner) view.findViewById(R.id.storedLoc_Spinner);
         List<String> storageLocation = new ArrayList<>();
