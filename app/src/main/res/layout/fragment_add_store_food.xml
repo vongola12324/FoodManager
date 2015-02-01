@@ -201,8 +201,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="取消"
-            android:id="@+id/cancel_Button"
+            android:text="清除"
+            android:id="@+id/clear_Button"
             android:layout_gravity="center_vertical" />
     </TableRow>
 

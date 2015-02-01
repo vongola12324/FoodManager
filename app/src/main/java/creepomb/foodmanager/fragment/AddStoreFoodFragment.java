@@ -8,7 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,7 @@ import java.util.List;
 import creepomb.foodmanager.MainActivity;
 import creepomb.foodmanager.R;
 import creepomb.foodmanager.util.Category;
+import creepomb.foodmanager.util.FoodItem;
 import creepomb.foodmanager.util.StorageLocationItem;
 
 /**
@@ -26,7 +30,7 @@ import creepomb.foodmanager.util.StorageLocationItem;
  * Use the {@link AddStoreFoodFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddStoreFoodFragment extends BaseFragment {
+public class AddStoreFoodFragment extends BaseFragment implements View.OnClickListener {
 
     //private OnFragmentInteractionListener mListener;
 
@@ -46,7 +50,8 @@ public class AddStoreFoodFragment extends BaseFragment {
         return fragment;
     }
 
-    public AddStoreFoodFragment() {}
+    public AddStoreFoodFragment() {
+    }
 
     public AddStoreFoodFragment(int sectionNumber) {
         super(sectionNumber);
@@ -59,14 +64,14 @@ public class AddStoreFoodFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_store_food, container, false);
         //-----------------------------------------------------------------------------------------------------------------------------------
         Spinner categories_Spinner = (Spinner) view.findViewById(R.id.category_Spinner);
         List<Category> categories = MainActivity.dbCategoryProcess.getAll();
         List<String> categoryNames = new ArrayList<String>();
 
-        for (Category cate: categories) {
+        for (Category cate : categories) {
             categoryNames.add(cate.getName());
         }
         categories_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, categoryNames));
@@ -87,13 +92,13 @@ public class AddStoreFoodFragment extends BaseFragment {
         List<String> outDatedMonths = new ArrayList<String>();
         List<String> outDatedDays = new ArrayList<String>();
 
-        for(int i = 2065 ; i >= 1970 ; i--){
+        for (int i = 2065; i >= 1970; i--) {
             outDatedYears.add((new Integer(i)).toString());
         }
-        for(int i = 1 ; i <= 12 ; i++){
+        for (int i = 1; i <= 12; i++) {
             outDatedMonths.add((new Integer(i)).toString());
         }
-        for(int i = 1 ; i <= 31 ; i++){
+        for (int i = 1; i <= 31; i++) {
             outDatedDays.add((new Integer(i)).toString());
         }
 
@@ -110,7 +115,14 @@ public class AddStoreFoodFragment extends BaseFragment {
 
         storageLocation_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, storageLocation));
         //-----------------------------------------------------------------------------------------------------------------------------------
-        // Inflate the layout for this fragment
+
+        Button buttonOK = (Button) view.findViewById(R.id.newFood_Button);
+        buttonOK.setOnClickListener(this);
+
+        Button buttonCancel = (Button) view.findViewById(R.id.clear_Button);
+        buttonCancel.setOnClickListener(this);
+
+        //-----------------------------------------------------------------------------------------------------------------------------------
         return view;
     }
 
@@ -129,6 +141,39 @@ public class AddStoreFoodFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        int vid = v.getId();
+        if (vid == R.id.newFood_Button) {
+            EditText name_EditText = (EditText) this.getView().findViewById(R.id.name_EditText);
+            EditText amount_EditText = (EditText) this.getView().findViewById(R.id.amount_EditText);
+            Spinner unit_Spinner = (Spinner) this.getView().findViewById(R.id.unit_Spinner);
+            Spinner categories_Spinner = (Spinner) this.getView().findViewById(R.id.category_Spinner);
+
+            Spinner outDated_years_Spinner = (Spinner) this.getView().findViewById(R.id.outDated_Year_Spinner);
+            Spinner outDated_months_Spinner = (Spinner) this.getView().findViewById(R.id.outDated_Month_Spinner);
+            Spinner outDated_days_Spinner = (Spinner) this.getView().findViewById(R.id.outDated_Day_Spinner);
+
+            Spinner storageLocation_Spinner = (Spinner) this.getView().findViewById(R.id.storedLoc_Spinner);
+
+            MainActivity.dbFoodItemsProcess.insert(new FoodItem(
+                    name_EditText.getText().toString(),
+                    Integer.parseInt(amount_EditText.getText().toString()),
+                    (String)(unit_Spinner.getSelectedItem()),
+                    (int)categories_Spinner.getSelectedItemId(),
+                    FoodItem.getDateInMilli(
+                            Integer.parseInt((String)(outDated_years_Spinner.getSelectedItem())),
+                            Integer.parseInt((String)(outDated_months_Spinner.getSelectedItem())),
+                            Integer.parseInt((String)(outDated_days_Spinner.getSelectedItem()))
+                    ),
+                    (int)(storageLocation_Spinner.getSelectedItemId() + 1)
+            ));
+        }
+        else if (vid == R.id.clear_Button) {
+
+        }
     }
 
 }
