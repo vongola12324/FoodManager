@@ -11,11 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import creepomb.foodmanager.MainActivity;
 import creepomb.foodmanager.R;
@@ -33,6 +34,7 @@ import creepomb.foodmanager.util.StorageLocationItem;
  */
 public class AddStoreFoodFragment extends BaseFragment implements View.OnClickListener {
 
+    protected int[] DateSelection = new int [3];
     //private OnFragmentInteractionListener mListener;
 
     /**
@@ -90,7 +92,10 @@ public class AddStoreFoodFragment extends BaseFragment implements View.OnClickLi
         units.add("尾");
         units.add("瓶");
         units.add("罐");
+        units.add("箱");
         units.add("包");
+        units.add("片");
+        units.add("打");
 
 
         unit_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, units));
@@ -116,6 +121,13 @@ public class AddStoreFoodFragment extends BaseFragment implements View.OnClickLi
         outDated_years_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, outDatedYears));
         outDated_months_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, outDatedMonths));
         outDated_days_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, outDatedDays));
+        DateSelection[0] = outDatedYears.indexOf(new Integer(Calendar.getInstance(TimeZone.getTimeZone("GMT+8:00")).get(Calendar.YEAR)).toString());
+        outDated_years_Spinner.setSelection(DateSelection[0]);
+        DateSelection[1] = outDatedMonths.indexOf(new Integer(Calendar.getInstance(TimeZone.getTimeZone("GMT+8:00")).get(Calendar.MONTH)+1).toString());
+        outDated_months_Spinner.setSelection(DateSelection[1]);
+        DateSelection[2] = outDatedDays.indexOf(new Integer(Calendar.getInstance(TimeZone.getTimeZone("GMT+8:00")).get(Calendar.DAY_OF_MONTH)).toString());
+        outDated_days_Spinner.setSelection(DateSelection[2]);
+
         //-----------------------------------------------------------------------------------------------------------------------------------
         Spinner storageLocation_Spinner = (Spinner) view.findViewById(R.id.storedLoc_Spinner);
         List<String> storageLocation = new ArrayList<>();
@@ -206,9 +218,9 @@ public class AddStoreFoodFragment extends BaseFragment implements View.OnClickLi
         amount_EditText.setText("");
         unit_Spinner.setSelection(0);
         categories_Spinner.setSelection(0);
-        outDated_years_Spinner.setSelection(0);
-        outDated_months_Spinner.setSelection(0);
-        outDated_days_Spinner.setSelection(0);
+        outDated_years_Spinner.setSelection(DateSelection[0]);
+        outDated_months_Spinner.setSelection(DateSelection[1]);
+        outDated_days_Spinner.setSelection(DateSelection[2]);
         storageLocation_Spinner.setSelection(0);
 
     }

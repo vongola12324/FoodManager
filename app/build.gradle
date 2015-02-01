@@ -18,7 +18,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 21
         versionCode System.getenv("BUILD_NUMBER") as Integer ?: 0
-        versionName "1.5alpha"
+        versionName "1.6alpha"
         project.ext.set("archivesBaseName", "FoodManager" + "-" + versionName + "-build" + versionCode);
     }
     signingConfigs {

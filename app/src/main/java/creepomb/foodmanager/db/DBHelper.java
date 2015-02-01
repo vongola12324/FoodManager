@@ -3,7 +3,9 @@ package creepomb.foodmanager.db;
 import android.content.Context;
 import android.database.sqlite.*;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import creepomb.foodmanager.MainActivity;
 import creepomb.foodmanager.util.Category;
@@ -35,13 +37,20 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + DBStorageLocationItemsProcess.TABLE_NAME +
                 "(" + DBStorageLocationItemsProcess.KEY_ID + "," + DBStorageLocationItemsProcess.ICONINDEX_COLUMN + "," + DBStorageLocationItemsProcess.NAME_COLUMN + ")" +
                 "VALUES (2, 2, '零食櫃');");
-        db.execSQL(DBCategoryProcess.getSQL_INSERT(new Category("水果")));
-        db.execSQL(DBCategoryProcess.getSQL_INSERT(new Category("乾糧")));
-        db.execSQL(DBCategoryProcess.getSQL_INSERT(new Category("其他")));
+        List<String> CategoryList = new ArrayList<String>();
+        CategoryList.add("蔬菜");
+        CategoryList.add("水果");
+        CategoryList.add("乾糧");
+        CategoryList.add("肉品");
+        CategoryList.add("海鮮");
+        CategoryList.add("熟食");
+        CategoryList.add("其他");
+        for(String str:CategoryList) {
+            db.execSQL(DBCategoryProcess.getSQL_INSERT(new Category(str)));
+        }
 
-        db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("伊賀", 1, "隻", 2, FoodItem.getDateInMilli(2075, 7, 17), 2)));
         db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("香蕉", 5, "串", 0, FoodItem.getDateInMilli(2015, 2, 7), 1)));
-        db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("蘋果", 1, "隻", 0, FoodItem.getDateInMilli(2015, 2, 5), 0)));
+        db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("蘋果", 1, "顆", 0, FoodItem.getDateInMilli(2015, 2, 5), 0)));
         db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("泡麵", 10, "箱", 1, FoodItem.getDateInMilli(2016, 2, 1), 0)));
 
     }
