@@ -152,7 +152,10 @@ public class MainActivity extends ActionBarActivity
             fragmentManager.popBackStackImmediate();
         }
 
-
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            getSupportActionBar().setTitle(mTitle);
+        }
 
     }
 

@@ -1,6 +1,8 @@
 package creepomb.foodmanager.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -145,6 +147,9 @@ public class AddStoreFoodFragment extends BaseFragment implements View.OnClickLi
         Button buttonCancel = (Button) view.findViewById(R.id.clear_Button);
         buttonCancel.setOnClickListener(this);
 
+        Button buttonQ = (Button) view.findViewById(R.id.quickAdd_Button);
+        buttonQ.setOnClickListener(this);
+
         //-----------------------------------------------------------------------------------------------------------------------------------
         return view;
     }
@@ -200,6 +205,54 @@ public class AddStoreFoodFragment extends BaseFragment implements View.OnClickLi
         else if (vid == R.id.clear_Button) {
             resetAllTestBox();
         }
+        else if (vid == R.id.quickAdd_Button) {
+            AlertDialog.Builder builderSingle = new AlertDialog.Builder(v.getContext());
+            builderSingle.setIcon(R.drawable.ic_launcher);
+            builderSingle.setTitle("Select One Name:-");
+            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                    v.getContext(),
+                    android.R.layout.select_dialog_singlechoice);
+
+            List<String> names = MainActivity.dbFoodItemsProcess.getAllFoodName();
+
+            arrayAdapter.addAll(names);
+
+            builderSingle.setNegativeButton("cancel",
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+            builderSingle.setAdapter(arrayAdapter, new quickedit(arrayAdapter, this));
+//                    new DialogInterface.OnClickListener() {
+//
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+
+//                            String strName = arrayAdapter.getItem(which);
+//                            AlertDialog.Builder builderInner = new AlertDialog.Builder(
+//                                    DialogActivity.this);
+//                            builderInner.setMessage(strName);
+//                            builderInner.setTitle("Your Selected Item is");
+//                            builderInner.setPositiveButton("Ok",
+//                                    new DialogInterface.OnClickListener() {
+//
+//                                        @Override
+//                                        public void onClick(
+//                                                DialogInterface dialog,
+//                                                int which) {
+//                                            dialog.dismiss();
+//                                        }
+//                                    });
+//                            builderInner.show();
+                     //   }
+                    //});
+            builderSingle.show();
+        }
     }
 
     public void resetAllTestBox() {
@@ -223,6 +276,24 @@ public class AddStoreFoodFragment extends BaseFragment implements View.OnClickLi
         outDated_days_Spinner.setSelection(DateSelection[2]);
         storageLocation_Spinner.setSelection(0);
 
+    }
+
+
+    public static class quickedit implements DialogInterface.OnClickListener {
+        ArrayAdapter<String> arrayAdapter;
+        AddStoreFoodFragment fragment;
+
+        public quickedit (ArrayAdapter<String> arrayAdapter, AddStoreFoodFragment fragment) {
+            this.arrayAdapter = arrayAdapter;
+            this.fragment = fragment;
+        }
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            EditText name_EditText = (EditText) fragment.getView().findViewById(R.id.name_EditText);
+            String strName = arrayAdapter.getItem(which);
+            name_EditText.setText(strName);
+        }
     }
 
 }
