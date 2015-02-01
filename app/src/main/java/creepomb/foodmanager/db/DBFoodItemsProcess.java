@@ -172,7 +172,7 @@ public class DBFoodItemsProcess {
 
     // 建立範例資料
     public void sample() {
-        FoodItem item = new FoodItem("伊賀", 1, "隻", 1, new GregorianCalendar(2075, 7, 17).getTimeInMillis(), 1);
+        FoodItem item = new FoodItem("伊賀", 1, "隻", 1, FoodItem.getDateInMilli(2075, 7, 17), 1);
 
         insert(item);
     }
