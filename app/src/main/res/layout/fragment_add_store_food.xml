@@ -138,13 +138,12 @@
             android:id="@+id/outDated_TextView"
             android:layout_gravity="center_vertical" />
 
-        <EditText
-            android:layout_width="55dp"
+        <Spinner
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/outDated_Year_EditText"
-            android:layout_gravity="center_vertical" />
+            android:id="@+id/outDated_Year_Spinner"
+            android:layout_weight="1"
+            android:spinnerMode="dropdown" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -154,13 +153,12 @@
             android:id="@+id/outDated_Year_TextView"
             android:layout_gravity="center_vertical" />
 
-        <EditText
-            android:layout_width="55dp"
+        <Spinner
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/outDated_Month_EditText"
-            android:layout_gravity="center_vertical" />
+            android:id="@+id/outDated_Month_Spinner"
+            android:layout_weight="1"
+            android:spinnerMode="dropdown" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -170,14 +168,12 @@
             android:id="@+id/outDated_Month_TextView"
             android:layout_gravity="center_vertical" />
 
-        <EditText
-            android:layout_width="55dp"
+        <Spinner
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/outDated_Day_EditText"
-            android:layout_weight="0.00"
-            android:layout_gravity="center_vertical" />
+            android:id="@+id/outDated_Day_Spinner"
+            android:layout_weight="1"
+            android:spinnerMode="dropdown" />
 
         <TextView
             android:layout_width="wrap_content"
