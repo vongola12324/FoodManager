@@ -24,7 +24,7 @@
             android:layout_height="40dp"
             android:id="@+id/category_Spinner"
             android:layout_gravity="center_vertical"
-            android:spinnerMode="dialog" />
+            android:spinnerMode="dropdown" />
 
     </TableRow>
 
@@ -99,7 +99,7 @@
             android:layout_height="40dp"
             android:id="@+id/unit_Spinner"
             android:layout_gravity="center_vertical"
-            android:spinnerMode="dialog" />
+            android:spinnerMode="dropdown" />
     </TableRow>
 
     <TableRow
@@ -121,7 +121,8 @@
             android:layout_height="40dp"
             android:id="@+id/storedLoc_Spinner"
             android:layout_gravity="center_vertical"
-            android:spinnerMode="dialog" />
+            android:spinnerMode="dropdown"
+            android:textAlignment="center" />
     </TableRow>
 
     <TableRow
@@ -138,13 +139,12 @@
             android:id="@+id/outDated_TextView"
             android:layout_gravity="center_vertical" />
 
-        <EditText
-            android:layout_width="55dp"
+        <Spinner
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/outDated_Year_EditText"
-            android:layout_gravity="center_vertical" />
+            android:id="@+id/outDated_Year_Spinner"
+            android:layout_weight="1"
+            android:spinnerMode="dropdown" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -154,13 +154,12 @@
             android:id="@+id/outDated_Year_TextView"
             android:layout_gravity="center_vertical" />
 
-        <EditText
-            android:layout_width="55dp"
+        <Spinner
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/outDated_Month_EditText"
-            android:layout_gravity="center_vertical" />
+            android:id="@+id/outDated_Month_Spinner"
+            android:layout_weight="1"
+            android:spinnerMode="dropdown" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -170,14 +169,12 @@
             android:id="@+id/outDated_Month_TextView"
             android:layout_gravity="center_vertical" />
 
-        <EditText
-            android:layout_width="55dp"
+        <Spinner
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/outDated_Day_EditText"
-            android:layout_weight="0.00"
-            android:layout_gravity="center_vertical" />
+            android:id="@+id/outDated_Day_Spinner"
+            android:layout_weight="1"
+            android:spinnerMode="dropdown" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -190,23 +187,25 @@
     </TableRow>
 
     <TableRow
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.08">
+        android:layout_weight="0.28">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="186dp"
+            android:layout_height="74dp"
             android:text="新增"
+            android:textSize = "25dp"
             android:id="@+id/newFood_Button"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:background="#ff25ff24" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="取消"
-            android:id="@+id/cancel_Button"
+            android:text="清除"
+            android:id="@+id/clear_Button"
             android:layout_gravity="center_vertical" />
     </TableRow>
 

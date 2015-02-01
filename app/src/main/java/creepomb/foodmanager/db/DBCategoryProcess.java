@@ -28,7 +28,7 @@ public class DBCategoryProcess {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    CATEGORYNAME_COLUMN + " TEXT NOT NULL, " + ")" ;
+                    CATEGORYNAME_COLUMN + " TEXT NOT NULL " + ")" ;
 
     private DBHelper helper;
 
@@ -141,6 +141,12 @@ public class DBCategoryProcess {
         }
 
         return result;
+    }
+
+    public static String getSQL_INSERT(Category item) {
+        return "INSERT INTO " + TABLE_NAME +
+                "(" + CATEGORYNAME_COLUMN + ")" +
+                "VALUES ('" + item.getName() +  "');";
     }
 
 }

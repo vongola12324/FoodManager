@@ -1,7 +1,9 @@
 package creepomb.foodmanager.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +13,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import junit.framework.Test;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
+import creepomb.foodmanager.MainActivity;
 import creepomb.foodmanager.R;
 
 import creepomb.foodmanager.util.FoodItem;
@@ -27,15 +35,16 @@ import creepomb.foodmanager.util.FoodItem;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class FoodListFragment extends BaseFragment implements AbsListView.OnItemClickListener {
+public class FoodListFragment extends BaseFragment implements AbsListView.OnItemClickListener,
+        AdapterView.OnItemLongClickListener{
 
     public static String titleName = "";
 
     private AbsListView mListView;
 
-    private ListAdapter mAdapter;
+    public ListAdapter mAdapter;
 
-    protected List<FoodItem> items;
+    public List<FoodItem> items;
 
     public static FoodListFragment newInstance(int sectionNumber, List<FoodItem> items) {
         FoodListFragment fragment = new FoodListFragment(sectionNumber);
@@ -61,7 +70,7 @@ public class FoodListFragment extends BaseFragment implements AbsListView.OnItem
         super.onCreate(savedInstanceState);
 
         mAdapter = new FoodItemAdapter(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, items);
+                R.layout.food_item, android.R.id.text1, items);
     }
 
     @Override
@@ -75,6 +84,8 @@ public class FoodListFragment extends BaseFragment implements AbsListView.OnItem
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
+
+        mListView.setOnItemLongClickListener(this);
 
         return view;
     }
@@ -106,7 +117,58 @@ public class FoodListFragment extends BaseFragment implements AbsListView.OnItem
             ((TextView) emptyView).setText(emptyText);
         }
     }
-    
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setMessage("是否刪除?")
+                .setPositiveButton("是", new doDelete(parent, view, position, id, this))
+                .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        AlertDialog logout_dialog = builder.create();
+        logout_dialog.show();
+
+        return true;
+    }
+
+    public static class doDelete implements DialogInterface.OnClickListener{
+
+        private AdapterView<?> parent;
+        private View view;
+        private int position;
+        private long id;
+        private FoodListFragment fragment;
+
+        public doDelete(AdapterView<?> parent, View view, int position, long id, FoodListFragment fragment) {
+            this.parent = parent;
+            this.view = view;
+            this.position = position;
+            this.id = id;
+            this.fragment = fragment;
+        }
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            Object obj = parent.getItemAtPosition(position);
+            if (obj instanceof  FoodItem) {
+                FoodItem item = (FoodItem) obj;
+
+                long fooditem_ID = item.getId();
+
+                MainActivity.dbFoodItemsProcess.delete(fooditem_ID);
+
+                FoodItemAdapter mAdapter = (FoodItemAdapter)this.fragment.mAdapter;
+                mAdapter.remove(item);
+                mAdapter.notifyDataSetChanged();
+
+                Toast.makeText(view.getContext(), "刪除完成", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     public static class FoodItemAdapter extends ArrayAdapter<FoodItem>{
 
         public FoodItemAdapter(Context context, int resource, int textViewResourceId, List<FoodItem> objects) {
@@ -116,17 +178,19 @@ public class FoodListFragment extends BaseFragment implements AbsListView.OnItem
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            FoodItem storageLocation = getItem(position);
+            FoodItem fooditem = getItem(position);
 
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.storage_location_item, parent, false);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.food_item, parent, false);
             }
 
-            //TextView tvName = (TextView) convertView.findViewById(R.id.textView);
-            //ImageView ivName = (ImageView) convertView.findViewById(R.id.imageView);
+            TextView tv_name = (TextView) convertView.findViewById(R.id.item_name);
+            TextView tv_count = (TextView) convertView.findViewById(R.id.item_count);
+            TextView tv_time = (TextView) convertView.findViewById(R.id.item_time);
 
-            //tvName.setText(storageLocation.name);
-            //IconManager.setIconSrc(ivName, storageLocation.iconIndex);
+            tv_name.setText(fooditem.getName());
+            tv_count.setText(fooditem.getAmount() + fooditem.getUnit());
+            tv_time.setText(FoodItem.getDisplay(fooditem.getOutDated()));
 
             return convertView;
         }

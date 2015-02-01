@@ -15,6 +15,10 @@ import android.view.*;
 import android.support.v4.widget.DrawerLayout;
 import android.database.sqlite.*;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import creepomb.foodmanager.db.DBCategoryProcess;
 import creepomb.foodmanager.db.DBFoodItemsProcess;
 import creepomb.foodmanager.fragment.AddStoreFoodFragment;
@@ -24,6 +28,7 @@ import creepomb.foodmanager.fragment.StorageLocationFragment;
 
 import creepomb.foodmanager.db.DBStorageLocationItemsProcess;
 import creepomb.foodmanager.db.DBHelper;
+import creepomb.foodmanager.util.FoodItem;
 import creepomb.foodmanager.util.StorageLocationItem;
 
 
@@ -39,7 +44,8 @@ public class MainActivity extends ActionBarActivity
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
+    private DrawerLayout mDrawerLayout;
+    private int flag = 0;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
@@ -56,6 +62,7 @@ public class MainActivity extends ActionBarActivity
         mTitle = getTitle();
 
         // Set up the drawer.
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
@@ -73,15 +80,42 @@ public class MainActivity extends ActionBarActivity
 
     public void onNavigationDrawerItemSelected(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                 .replace(R.id.container, fragment)
-                 .commit();
+
+        if(flag == 0) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .commit();
+            flag = 1;
+        }
+        else{
+            fragmentManager.beginTransaction()
+                    .addToBackStack(fragment.toString())/*Add this transaction to the back stack*/
+                    .replace(R.id.container, fragment)
+                    .commit();
+        }
+
     }
 
     public Fragment newFragmentInstance(int number) {
         switch (number) {
             case 1:
                 return StorageLocationFragment.newInstance(number);
+            case 2:
+                List<FoodItem> items = this.dbFoodItemsProcess.getAll();
+
+                Collections.sort(items, new Comparator<FoodItem>() {
+                    @Override
+                    public int compare(FoodItem f1, FoodItem f2) {
+                        long t1 = f1.getOutDated();
+                        long t2 = f2.getOutDated();
+                        if (t1 < t2) return -1;
+                        else if (t1 > t2) return 1;
+                        return 0;
+                    }
+                });
+
+                return FoodListFragment.newInstance(2, items);
+
             case 3:
                 return AddStoreFoodFragment.newInstance(number);
             default:
@@ -91,19 +125,35 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage("是否離開?")
-                .setPositiveButton("是", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                        System.exit(0);
-                    }
-                })
-                .setNegativeButton("否", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {}
-                });
-        AlertDialog logout_dialog = builder.create();
-        logout_dialog.show();
+
+        if(mNavigationDrawerFragment.isDrawerOpen()) {
+            mDrawerLayout.closeDrawers();
+        }
+//        } else {
+//            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//            builder.setMessage("是否離開?")
+//                    .setPositiveButton("是", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            android.os.Process.killProcess(android.os.Process.myPid());
+//                            System.exit(0);
+//                        }
+//                    })
+//                    .setNegativeButton("否", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {}
+//                    });
+//            AlertDialog logout_dialog = builder.create();
+//            logout_dialog.show();
+//        }
+        else if (getFragmentManager().getBackStackEntryCount() <=1) {
+            super.onBackPressed();
+        }
+        else {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.popBackStackImmediate();
+        }
+
+
+
     }
 
     public void onSectionAttached(int number) {
@@ -117,15 +167,15 @@ public class MainActivity extends ActionBarActivity
             case 3:
                 mTitle = getString(R.string.title_section3);
                 break;
-            case 4:
-                mTitle = getString(R.string.title_section4);
-                break;
             case 5:
                 mTitle = getString(R.string.title_section5) + (FoodListFragment.titleName != "" ? " - " + FoodListFragment.titleName : "");
                 break;
         }
         //BAD~~~
-        getSupportActionBar().setTitle(mTitle);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            getSupportActionBar().setTitle(mTitle);
+        }
     }
 
     public void restoreActionBar() {
