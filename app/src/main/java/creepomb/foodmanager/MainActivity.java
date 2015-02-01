@@ -45,6 +45,7 @@ public class MainActivity extends ActionBarActivity
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private DrawerLayout mDrawerLayout;
+    private int flag = 0;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
@@ -79,10 +80,20 @@ public class MainActivity extends ActionBarActivity
 
     public void onNavigationDrawerItemSelected(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                 .addToBackStack(fragment.toString())/*Add this transaction to the back stack*/
-                 .replace(R.id.container, fragment)
-                 .commit();
+
+        if(flag == 0) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .commit();
+            flag = 1;
+        }
+        else{
+            fragmentManager.beginTransaction()
+                    .addToBackStack(fragment.toString())/*Add this transaction to the back stack*/
+                    .replace(R.id.container, fragment)
+                    .commit();
+        }
+
     }
 
     public Fragment newFragmentInstance(int number) {
@@ -115,30 +126,34 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onBackPressed() {
 
-        if(mNavigationDrawerFragment.isDrawerOpen()){
+        if(mNavigationDrawerFragment.isDrawerOpen()) {
             mDrawerLayout.closeDrawers();
-            //mNavigationDrawerFragment.setMenuVisibility(true);
         }
+//        } else {
+//            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//            builder.setMessage("是否離開?")
+//                    .setPositiveButton("是", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            android.os.Process.killProcess(android.os.Process.myPid());
+//                            System.exit(0);
+//                        }
+//                    })
+//                    .setNegativeButton("否", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {}
+//                    });
+//            AlertDialog logout_dialog = builder.create();
+//            logout_dialog.show();
+//        }
         else if (getFragmentManager().getBackStackEntryCount() <=1) {
             super.onBackPressed();
         }
         else {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.popBackStackImmediate();
-        }/*
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage("是否離開?")
-                .setPositiveButton("是", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                        System.exit(0);
-                    }
-                })
-                .setNegativeButton("否", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {}
-                });
-        AlertDialog logout_dialog = builder.create();
-        logout_dialog.show();*/
+        }
+
+
+
     }
 
     public void onSectionAttached(int number) {
@@ -151,9 +166,6 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);
-                break;
-            case 4:
-                mTitle = getString(R.string.title_section4);
                 break;
             case 5:
                 mTitle = getString(R.string.title_section5) + (FoodListFragment.titleName != "" ? " - " + FoodListFragment.titleName : "");

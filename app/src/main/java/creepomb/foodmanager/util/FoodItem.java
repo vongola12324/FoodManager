@@ -1,11 +1,15 @@
 package creepomb.foodmanager.util;
 
+import android.database.Cursor;
 import android.provider.CalendarContract;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -57,13 +61,15 @@ public class FoodItem {
     }
 
     public static long getDateInMilli(int year, int month, int day){
-        return new GregorianCalendar(year, month, day).getTimeInMillis();
+        GregorianCalendar gc = new GregorianCalendar(TimeZone.getTimeZone("UTC"), Locale.TAIWAN);
+        gc.set(year, month, day);
+        return gc.getTimeInMillis();
     }
 
     public static String getDisplay(long mills) {
+
         //http://stackoverflow.com/a/6782571
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
+        GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
         calendar.setTimeInMillis(mills);
 
         return String.format("%04d年%02d月%02d日", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -76,4 +82,6 @@ public class FoodItem {
     public int getStoredLoc() {
         return storedLoc;
     }
+
+
 }

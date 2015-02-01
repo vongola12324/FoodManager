@@ -203,12 +203,10 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="75dp"
-            android:text="取消"
-            android:textSize = "20dp"
-            android:id="@+id/cancel_Button"
-            android:layout_gravity="center_vertical"
-            android:background="#ffff1f1d" />
+            android:layout_height="wrap_content"
+            android:text="清除"
+            android:id="@+id/clear_Button"
+            android:layout_gravity="center_vertical" />
     </TableRow>
 
 </LinearLayout>
