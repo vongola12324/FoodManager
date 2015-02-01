@@ -143,4 +143,10 @@ public class DBCategoryProcess {
         return result;
     }
 
+    public static String getSQL_INSERT(Category item) {
+        return "INSERT INTO " + TABLE_NAME +
+                "(" + CATEGORYNAME_COLUMN + ")" +
+                "VALUES ('" + item.getName() +  "');";
+    }
+
 }
