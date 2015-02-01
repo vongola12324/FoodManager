@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -170,10 +171,36 @@ public class AddStoreFoodFragment extends BaseFragment implements View.OnClickLi
                     ),
                     (int)(storageLocation_Spinner.getSelectedItemId() + 1)
             ));
+
+            Toast.makeText(v.getContext(), "新增完成", Toast.LENGTH_SHORT).show();
+            resetAllTestBox();
         }
         else if (vid == R.id.clear_Button) {
-
+            resetAllTestBox();
         }
+    }
+
+    public void resetAllTestBox() {
+        EditText name_EditText = (EditText) this.getView().findViewById(R.id.name_EditText);
+        EditText amount_EditText = (EditText) this.getView().findViewById(R.id.amount_EditText);
+        Spinner unit_Spinner = (Spinner) this.getView().findViewById(R.id.unit_Spinner);
+        Spinner categories_Spinner = (Spinner) this.getView().findViewById(R.id.category_Spinner);
+
+        Spinner outDated_years_Spinner = (Spinner) this.getView().findViewById(R.id.outDated_Year_Spinner);
+        Spinner outDated_months_Spinner = (Spinner) this.getView().findViewById(R.id.outDated_Month_Spinner);
+        Spinner outDated_days_Spinner = (Spinner) this.getView().findViewById(R.id.outDated_Day_Spinner);
+
+        Spinner storageLocation_Spinner = (Spinner) this.getView().findViewById(R.id.storedLoc_Spinner);
+
+        name_EditText.setText("");
+        amount_EditText.setText("");
+        unit_Spinner.setSelection(0);
+        categories_Spinner.setSelection(0);
+        outDated_years_Spinner.setSelection(0);
+        outDated_months_Spinner.setSelection(0);
+        outDated_days_Spinner.setSelection(0);
+        storageLocation_Spinner.setSelection(0);
+
     }
 
 }
