@@ -6,6 +6,7 @@ import android.database.sqlite.*;
 import java.util.GregorianCalendar;
 
 import creepomb.foodmanager.MainActivity;
+import creepomb.foodmanager.util.Category;
 import creepomb.foodmanager.util.FoodItem;
 import creepomb.foodmanager.util.StorageLocationItem;
 
@@ -35,10 +36,14 @@ public class DBHelper extends SQLiteOpenHelper {
                 "(" + DBStorageLocationItemsProcess.KEY_ID + "," + DBStorageLocationItemsProcess.ICONINDEX_COLUMN + "," + DBStorageLocationItemsProcess.NAME_COLUMN + ")" +
                 "VALUES (2, 2, '零食櫃');");
 
-        db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("伊賀", 1, "隻", 1, new GregorianCalendar(2075, 7, 17).getTimeInMillis(), 2)));
-        db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("香蕉", 5, "串", 1, new GregorianCalendar(2015, 2, 7).getTimeInMillis(), 1)));
-        db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("蘋果", 1, "隻", 1, new GregorianCalendar(2015, 2, 5).getTimeInMillis(), 0)));
-        db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("泡麵", 10, "箱", 2, new GregorianCalendar(2016, 2, 1).getTimeInMillis(), 0)));
+        db.execSQL(DBCategoryProcess.getSQL_INSERT(new Category("水果")));
+        db.execSQL(DBCategoryProcess.getSQL_INSERT(new Category("乾糧")));
+        db.execSQL(DBCategoryProcess.getSQL_INSERT(new Category("其他")));
+
+        db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("伊賀", 1, "隻", 2, new GregorianCalendar(2075, 7, 17).getTimeInMillis(), 2)));
+        db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("香蕉", 5, "串", 0, new GregorianCalendar(2015, 2, 7).getTimeInMillis(), 1)));
+        db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("蘋果", 1, "隻", 0, new GregorianCalendar(2015, 2, 5).getTimeInMillis(), 0)));
+        db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("泡麵", 10, "箱", 1, new GregorianCalendar(2016, 2, 1).getTimeInMillis(), 0)));
         /*db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("", 1, "隻", 1, new GregorianCalendar(2075, 7, 17).getTimeInMillis(), 0)));
         db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("", 1, "隻", 1, new GregorianCalendar(2075, 7, 17).getTimeInMillis(), 0)));
         db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("", 1, "隻", 1, new GregorianCalendar(2075, 7, 17).getTimeInMillis(), 0)));
@@ -46,6 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("", 1, "隻", 1, new GregorianCalendar(2075, 7, 17).getTimeInMillis(), 0)));
         db.execSQL(DBFoodItemsProcess.getSQL_INSERT(new FoodItem("", 1, "隻", 1, new GregorianCalendar(2075, 7, 17).getTimeInMillis(), 0)));
 */
+
     }
 
     @Override
