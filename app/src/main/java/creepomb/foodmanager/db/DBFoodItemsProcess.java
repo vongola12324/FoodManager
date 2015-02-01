@@ -170,13 +170,6 @@ public class DBFoodItemsProcess {
         return result;
     }
 
-    // 建立範例資料
-    public void sample() {
-        FoodItem item = new FoodItem("伊賀", 1, "隻", 1, FoodItem.getDateInMilli(2075, 7, 17), 1);
-
-        insert(item);
-    }
-
     public List<FoodItem> getIteminStoredLoc(long storedLocId) {
         if (storedLocId == -1)
             return getAll();
@@ -189,9 +182,6 @@ public class DBFoodItemsProcess {
                 result.add(getRecord(cursor));
             }
             cursor.close();
-            for(FoodItem fi:result){
-                Log.i("FoodItem", fi.toString());
-            }
             return result;
         }
     }
@@ -200,6 +190,17 @@ public class DBFoodItemsProcess {
         return "INSERT INTO " + TABLE_NAME +
                 "(" + FOODNAME_COLUMN + "," + AMOUNT_COLUMN + "," + UNIT_COLUMN + "," + CATEGORY_COLUMN + "," + OUTDATE_COLUMN + "," + STOREDLOC_COLUMN + ")" +
                 "VALUES ('" + item.getName() + "'," + item.getAmount() + ",'" + item.getUnit() + "'," + item.getCategory() + "," + item.getOutDated() + "," + item.getStoredLoc() + ");";
+    }
+
+    public List<String> getAllFoodName(){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        List<String> result = new ArrayList<String>();
+        Cursor cursor = db.query(
+                TABLE_NAME, null, null, null, null, null, null, null);
+        while (cursor.moveToNext()) {
+            result.add(cursor.getString(1));
+        }
+        return result;
     }
 
 }
