@@ -141,9 +141,6 @@ public class MainActivity extends ActionBarActivity
             case 3:
                 mTitle = getString(R.string.title_section3);
                 break;
-            case 4:
-                mTitle = getString(R.string.title_section4);
-                break;
             case 5:
                 mTitle = getString(R.string.title_section5) + (FoodListFragment.titleName != "" ? " - " + FoodListFragment.titleName : "");
                 break;
