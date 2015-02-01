@@ -7,8 +7,15 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import creepomb.foodmanager.MainActivity;
 import creepomb.foodmanager.R;
+import creepomb.foodmanager.util.Category;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,15 +54,25 @@ public class AddStoreFoodFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*if (getArguments() != null) {
-
-        }*/
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_add_store_food, container, false);
+
+        Spinner categories_Spinner = (Spinner) view.findViewById(R.id.category_Spinner);
+        List<Category> categories = MainActivity.dbCategoryProcess.getAll();
+        List<String> categoryNames = new ArrayList<String>();
+
+        for (Category cate: categories) {
+            categoryNames.add(cate.getName());
+        }
+
+        categories_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, categoryNames));
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_store_food, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
