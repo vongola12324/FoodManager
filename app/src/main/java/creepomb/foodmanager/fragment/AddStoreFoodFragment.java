@@ -69,7 +69,7 @@ public class AddStoreFoodFragment extends BaseFragment {
             categoryNames.add(cate.getName());
         }
 
-        categories_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, categoryNames));
+        categories_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, categoryNames));
 
         // Inflate the layout for this fragment
         return view;
