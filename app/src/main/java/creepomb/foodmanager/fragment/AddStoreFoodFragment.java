@@ -82,6 +82,16 @@ public class AddStoreFoodFragment extends BaseFragment implements View.OnClickLi
         List<String> units = new ArrayList<String>();
         units.add("個");
         units.add("隻");
+        units.add("根");
+        units.add("把");
+        units.add("顆");
+        units.add("粒");
+        units.add("條");
+        units.add("尾");
+        units.add("瓶");
+        units.add("罐");
+        units.add("包");
+
 
         unit_Spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, units));
         //-----------------------------------------------------------------------------------------------------------------------------------
